@@ -68,7 +68,13 @@ fun HomeScreen(
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = Gray10,
                 ),
-                title = { Text(text = "LOGO") },
+                title = {
+                    Image(
+                        modifier = Modifier.size(32.dp),
+                        painter = painterResource(id = R.drawable.logo_title),
+                        contentDescription = null,
+                    )
+                },
                 scrollBehavior = topAppBarScrollBehavior,
                 actions = {
                     IconButton(onClick = { /*TODO*/ }) {

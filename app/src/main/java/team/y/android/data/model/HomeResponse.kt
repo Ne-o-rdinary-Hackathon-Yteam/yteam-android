@@ -9,8 +9,8 @@ data class HomeResponse(
     data class HomeResponseData(
         val advertisements: List<AdvertisementResponse>,
         val videos: List<VideoResponse>,
-        val stories: List<StoreResponse>,
-        val characterObject: List<CharacterObject>,
+        val stores: List<StoreResponse>,
+        val characterObjects: List<CharacterObject>,
     )
 }
 
@@ -18,14 +18,15 @@ data class AdvertisementResponse(
     val id: Int,
     val title: String,
     val content: String,
-    val adUrl: String,
     val imageUrl: String,
+    val adUrl: String,
 )
 
 data class VideoResponse(
     val id: Int,
     val title: String,
     val thumbnailUrl: String,
+    val bookmarked: Boolean,
 )
 
 data class StoreResponse(
@@ -37,9 +38,9 @@ data class StoreResponse(
 
 data class CharacterObject(
     val kind: String,
-    val change: Int,
-    val level: String,
-    val curl: String,
+    val imageUrl: String,
+    val chance: Int,
+    val level: Int,
 )
 
 

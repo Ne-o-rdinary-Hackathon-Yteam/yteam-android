@@ -14,6 +14,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.pager.VerticalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -62,7 +64,7 @@ fun ShortFormScreen() {
     LaunchedEffect(key1 = Unit) {
         launch(Dispatchers.IO) {
             kotlin.runCatching {
-                shortFormApiService.getVideos(1)
+                shortFormApiService.getVideos(0)
             }.onSuccess {
                 videos = it
             }.onFailure {
@@ -92,6 +94,14 @@ fun ShortFormScreen() {
         Box(
             modifier = Modifier.fillMaxSize(),
         ) {
+            /*if (videos != null) {
+            VerticalPager(
+                state = rememberPagerState {
+                    videos!!.data
+                },
+            ) {
+
+            }*/
             VideoPlayer(
                 modifier = Modifier
                     .align(Alignment.Center)
@@ -200,6 +210,7 @@ fun ShortFormScreen() {
                                 )
                             }
                         }
+                     //   }
                     }
                 }
             }

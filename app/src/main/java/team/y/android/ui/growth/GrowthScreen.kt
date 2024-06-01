@@ -1,16 +1,14 @@
 package team.y.android.ui.growth
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.Image
-import android.provider.CalendarContract
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -25,7 +23,6 @@ import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -52,28 +49,38 @@ import team.y.android.ui.theme.MainLight
 @Preview
 @Composable
 fun GrowthScreen() {
-    Scaffold (
+    Scaffold(
+        topBar = {
+
+        },
         content = {
-            Box() {
-                Image(painter = painterResource(
-                    id = R.drawable.ic_launcher_background),
+            Box {
+                Image(
+                    painter = painterResource(
+                        id = R.drawable.img_groom
+                    ),
                     contentDescription = "background",
                     modifier = Modifier
-                        .height(285.dp)
+                        .padding(top = 80.dp)
+                        .height(340.dp)
                         .fillMaxWidth()
-                )
-                Image(
-                    painter = painterResource(id = R.drawable.ic_launcher_foreground),
-                    contentDescription = "user",
-                    colorFilter = androidx.compose.ui.graphics.ColorFilter.tint(Color.Red),
-                    modifier = Modifier
-                        .align(Alignment.TopEnd)
-                )
+                )/*
+            Image(
+                painter = painterResource(id = R.drawable.ic_launcher_foreground),
+                contentDescription = "user",
+                colorFilter = androidx.compose.ui.graphics.ColorFilter.tint(Color.Red),
+                modifier = Modifier.align(Alignment.TopEnd)
+            )*/
             }
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(start = 10.dp, top = 119.dp, end = 10.dp, bottom = 27.dp),
+                    .padding(
+                        start = 10.dp,
+                        top = 140.dp,
+                        end = 10.dp,
+                        bottom = 27.dp,
+                    ),
             ) {
                 //상단 안내 창
                 OutlinedCard(
@@ -104,7 +111,7 @@ fun GrowthScreen() {
                                 )
                                 .size(58.dp),
                             painter = painterResource(
-                                id = R.drawable.ic_launcher_background,
+                                id = R.drawable.img_daangn_profile,
                             ),
                             contentScale = ContentScale.Crop,
                             contentDescription = null,
@@ -119,7 +126,7 @@ fun GrowthScreen() {
                             Spacer(modifier = Modifier.height(6.dp))
                             Card(
                                 shape = MaterialTheme.shapes.medium,
-                            ){
+                            ) {
                                 LinearProgressIndicator(
                                     modifier = Modifier.height(10.dp),
                                     progress = 0.8f,
@@ -141,7 +148,7 @@ fun GrowthScreen() {
                         .width(164.dp)
                         .align(Alignment.CenterHorizontally),
                     painter = painterResource(
-                        id = R.drawable.ic_launcher_background,
+                        id = R.drawable.img_daangn,
                     ),
                     contentDescription = "character",
                 )
@@ -157,7 +164,7 @@ fun GrowthScreen() {
                         .fillMaxWidth()
                         .height(82.dp)
                         .background(gradient, shape = RoundedCornerShape(50.dp))
-                ){
+                ) {
                     OutlinedCard(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -186,7 +193,7 @@ fun GrowthScreen() {
                                     )
                                     .size(58.dp),
                                 painter = painterResource(
-                                    id = R.drawable.ic_launcher_background,
+                                    id = R.drawable.img_carrot_circle,
                                 ),
                                 contentScale = ContentScale.Crop,
                                 contentDescription = null,
@@ -202,9 +209,7 @@ fun GrowthScreen() {
                                 )
                                 Spacer(modifier = Modifier.height(6.dp))
                                 Text(
-                                    text = "당근 키우러 고고",
-                                    color = Color.White,
-                                    fontSize = 10.sp
+                                    text = "당근 키우러 고고", color = Color.White, fontSize = 10.sp
                                 )
                                 Spacer(modifier = Modifier.weight(1f))
                             }
@@ -213,9 +218,6 @@ fun GrowthScreen() {
                 }
 
             }
-
-
-
-        }
+        },
     )
 }

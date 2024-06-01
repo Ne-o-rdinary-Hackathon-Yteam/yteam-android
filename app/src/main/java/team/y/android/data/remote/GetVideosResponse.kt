@@ -7,9 +7,19 @@ data class GetVideosResponse(
     override val code: Int,
     override val message: String,
     override val data: GetVideosResponseData,
-    val pageInfoResponse: PageInfoResponse,
+    val pageInfo: PageInfoResponse,
 ) : CommonResponse() {
-    class GetVideosResponseData
+    data class GetVideosResponseData(
+        val id: Int,
+        val userName: String,
+        val title: String,
+        val viewCount: Int,
+        val videoUrl: String,
+        val storeLink: String,
+        val bookmarked: Boolean,
+        val thumbnailUrl: String,
+    )
+
     data class PageInfoResponse(
         val page: Int,
         val size: Int,
