@@ -5,7 +5,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Home
@@ -19,7 +18,6 @@ import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -38,7 +36,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            YTeamTheme {
+            YTeamTheme(
+                darkTheme = false,
+            ) {
                 var currentDestination by remember { mutableStateOf(YTeamDestination.HOME) }
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
@@ -68,18 +68,12 @@ class MainActivity : ComponentActivity() {
                             }
                         }
                     },
-                ) { innerPadding ->
-                    Surface(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(innerPadding),
-                    ) {
-                        when (currentDestination) {
-                            YTeamDestination.HOME -> HomeScreen()
-                            YTeamDestination.GROWTH -> GrowthScreen()
-                            YTeamDestination.SHORT_FORM -> ShortFormScreen()
-                            YTeamDestination.MY_PAGE -> MyPageScreen()
-                        }
+                ) {
+                    when (currentDestination) {
+                        YTeamDestination.HOME -> HomeScreen()
+                        YTeamDestination.GROWTH -> GrowthScreen()
+                        YTeamDestination.SHORT_FORM -> ShortFormScreen()
+                        YTeamDestination.MY_PAGE -> MyPageScreen()
                     }
                 }
             }
