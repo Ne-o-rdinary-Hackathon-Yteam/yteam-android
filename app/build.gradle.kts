@@ -62,6 +62,7 @@ dependencies {
     kapt("com.google.dagger:hilt-compiler:2.48.1")
     implementation("androidx.navigation:navigation-compose:2.7.7")
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
+    implementation("com.google.android.exoplayer:exoplayer:2.15.1")
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))

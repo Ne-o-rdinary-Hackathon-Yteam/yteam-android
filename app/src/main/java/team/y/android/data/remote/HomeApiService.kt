@@ -1,13 +1,13 @@
 package team.y.android.data.remote
 
 import retrofit2.http.GET
-import retrofit2.http.Query
+import retrofit2.http.Path
 import team.y.android.data.model.HomeResponse
 
 interface HomeApiService {
 
-    @GET("/home/view")
+    @GET("/home/view/{token}")
     suspend fun getHome(
-        @Query("token") req: String,
+        @Path("token") req: String,
     ): HomeResponse
 }

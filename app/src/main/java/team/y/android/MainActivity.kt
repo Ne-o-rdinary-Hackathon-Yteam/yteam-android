@@ -56,7 +56,7 @@ fun App() {
             bottomBar = {
                 BottomAppBar(
                     modifier = Modifier.shadow(10.dp),
-                    containerColor = Color.White,
+                    containerColor = if (currentDestination == YTeamDestination.SHORT_FORM) Color.DarkGray else Color.White,
                 ) {
                     YTeamDestination.entries.forEach { destination ->
                         val isSelected = destination == currentDestination
@@ -135,7 +135,7 @@ enum class YTeamDestination(
     ;
 }
 
-private val foregroundBrush: Brush = Brush.verticalGradient(
+val foregroundBrush: Brush = Brush.verticalGradient(
     listOf(
         Color.Transparent,
         Color.Black,
