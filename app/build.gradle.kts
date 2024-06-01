@@ -50,6 +50,7 @@ android {
 
 dependencies {
     implementation(libs.coil.compose)
+    implementation(libs.androidx.compose.icons.extended)
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)
     implementation(libs.androidx.core.ktx)
