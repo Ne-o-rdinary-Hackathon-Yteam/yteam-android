@@ -1,14 +1,12 @@
 package team.y.android.ui.home
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -16,22 +14,17 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material.icons.outlined.Person
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -46,22 +39,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import team.y.android.R
-import team.y.android.ui.theme.Gray0
-import team.y.android.ui.theme.Gray20
-import team.y.android.ui.theme.Gray30
-import team.y.android.ui.theme.Gray40
-import team.y.android.ui.theme.Gray50
-import team.y.android.ui.theme.Main
+import team.y.android.foregroundBrush
+import team.y.android.ui.theme.Gray10
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
@@ -71,8 +57,12 @@ fun HomeScreen() {
     val topAppBarScrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
     Scaffold(
+        containerColor = Gray10,
         topBar = {
             TopAppBar(
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = Gray10,
+                ),
                 title = { Text(text = "LOGO") },
                 scrollBehavior = topAppBarScrollBehavior,
                 actions = {
@@ -107,10 +97,10 @@ fun HomeScreen() {
             ) {
                 if (state.homeState != null) {
                     val pagerState = rememberPagerState {
-                        state.homeState!!.data!!.advertisements.size
+                        state.homeState!!.data.advertisements.size
                     }
                     HorizontalPager(state = pagerState) { page ->
-                        AsyncImage(
+                        Box(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(
@@ -120,20 +110,39 @@ fun HomeScreen() {
                                 )
                                 .height(256.dp)
                                 .clip(RoundedCornerShape(10.dp)),
-                            model = state.homeState!!.data!!.advertisements[page].adUrl,
-                            contentScale = ContentScale.Crop,
-                            contentDescription = null,
-                        )
-                    }
+                        ) {
+                            AsyncImage(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(256.dp),
+                                model = state.homeState!!.data.advertisements[page].imgUrl,
+                                contentScale = ContentScale.Crop,
+                                contentDescription = null,
+                            )
+                            Surface(
+                                modifier = Modifier
+                                    .align(Alignment.BottomCenter)
+                                    .fillMaxWidth()
+                                    .height(128.dp)
+                                    .background(brush = foregroundBrush),
+                                color = Color.Transparent,
+                            ) {
+                                Column(
+                                    verticalArrangement = Arrangement.Bottom,
+                                ) {
 
-                    Surface(
-                        modifier = Modifier
-                            .width(80.dp)
-                            .height(8.dp),
-                        color = Color.Red,
-                    ) {
+                                }
+                            }
+                        }
+                    }/*
+                                        Surface(
+                                            modifier = Modifier
+                                                .width(80.dp)
+                                                .height(8.dp),
+                                            color = Color.Red,
+                                        ) {
 
-                    }
+                                        }*/
                 }
             }
             Column(
@@ -147,132 +156,169 @@ fun HomeScreen() {
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
                 )
-                OutlinedCard(
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(50.dp),
-                    colors = CardDefaults.outlinedCardColors(
-                        containerColor = Gray0,
-                    ),
-                    border = BorderStroke(
-                        width = 1.dp,
-                        color = Gray30,
-                    ),
-                ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(12.dp),
-                        horizontalArrangement = Arrangement.spacedBy(12.dp),
-                    ) {
-                        Image(
-                            modifier = Modifier
-                                .clip(CircleShape)
-                                .border(
-                                    width = 1.dp,
-                                    shape = CircleShape,
-                                    color = Main,
-                                )
-                                .size(64.dp),
-                            painter = painterResource(
-                                id = R.drawable.ic_launcher_background,
-                            ),
-                            contentScale = ContentScale.Crop,
-                            contentDescription = null,
-                        )
-                        Column(
-                            verticalArrangement = Arrangement.spacedBy(4.dp),
-                        ) {
-                            Text(
-                                modifier = Modifier.background(
-                                    color = Gray20,
-                                ),
-                                fontSize = 10.sp,
-                                text = "LV.3 JUNJABOY",
-                                color = Gray40,
-                            )
 
-                            //TODO count
-                            var number = 2
-                            Row(
-                                verticalAlignment = Alignment.CenterVertically,
-                            ) {
-                                Text(
-                                    text = buildAnnotatedString {
-                                        withStyle(
-                                            SpanStyle(
-                                                fontSize = 14.sp,
-                                                fontWeight = FontWeight.Bold,
-                                                color = Gray50,
-                                            ),
-                                        ) {
-                                            append("룰렛을 ")
-                                            withStyle(
-                                                SpanStyle(
-                                                    color = Main,
-                                                ),
-                                            ) {
-                                                append("${number}번 ")
-                                            }
-                                            append("돌릴 수 있어요!")
-                                        }
-                                    },
-                                )
-                                Icon(
-                                    modifier = Modifier.size(24.dp),
-                                    imageVector = Icons.Default.ChevronRight,
-                                    contentDescription = "자세히",
-                                    tint = Gray30,
-                                )
-                            }
-                            Surface(
-                                modifier = Modifier
-                                    .size(
-                                        width = 200.dp, height = 10.dp
-                                    )
-                                    .clip(
-                                        shape = RoundedCornerShape(10.dp),
-                                    ),
-                                color = Gray30,
-                            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.img_level),
+                    contentDescription = null,
+                )/* OutlinedCard(
+                     modifier = Modifier.fillMaxWidth(),
+                     shape = RoundedCornerShape(50.dp),
+                     colors = CardDefaults.outlinedCardColors(
+                         containerColor = Gray0,
+                     ),
+                     border = BorderStroke(
+                         width = 1.dp,
+                         color = Gray30,
+                     ),
+                 ) {
+                     Row(
+                         modifier = Modifier
+                             .fillMaxSize()
+                             .padding(12.dp),
+                         horizontalArrangement = Arrangement.spacedBy(12.dp),
+                     ) {
+                         Image(
+                             modifier = Modifier
+                                 .clip(CircleShape)
+                                 .border(
+                                     width = 1.dp,
+                                     shape = CircleShape,
+                                     color = Main,
+                                 )
+                                 .size(64.dp),
+                             painter = painterResource(
+                                 id = R.drawable.ic_launcher_background,
+                             ),
+                             contentScale = ContentScale.Crop,
+                             contentDescription = null,
+                         )
+                         Column(
+                             verticalArrangement = Arrangement.spacedBy(4.dp),
+                         ) {
+                             Text(
+                                 modifier = Modifier.background(
+                                     color = Gray20,
+                                 ),
+                                 fontSize = 10.sp,
+                                 text = "LV.3 JUNJABOY",
+                                 color = Gray40,
+                             )
 
-                            }
-                        }
-                    }
-                }
+                             //TODO count
+                             var number = 2
+                             Row(
+                                 verticalAlignment = Alignment.CenterVertically,
+                             ) {
+                                 Text(
+                                     text = buildAnnotatedString {
+                                         withStyle(
+                                             SpanStyle(
+                                                 fontSize = 14.sp,
+                                                 fontWeight = FontWeight.Bold,
+                                                 color = Gray50,
+                                             ),
+                                         ) {
+                                             append("룰렛을 ")
+                                             withStyle(
+                                                 SpanStyle(
+                                                     color = Main,
+                                                 ),
+                                             ) {
+                                                 append("${number}번 ")
+                                             }
+                                             append("돌릴 수 있어요!")
+                                         }
+                                     },
+                                 )
+                                 Icon(
+                                     modifier = Modifier.size(24.dp),
+                                     imageVector = Icons.Default.ChevronRight,
+                                     contentDescription = "자세히",
+                                     tint = Gray30,
+                                 )
+                             }
+                             Surface(
+                                 modifier = Modifier
+                                     .size(
+                                         width = 200.dp, height = 10.dp
+                                     )
+                                     .clip(
+                                         shape = RoundedCornerShape(10.dp),
+                                     ),
+                                 color = Gray30,
+                             ) {
+
+                             }
+                         }
+                     }
+                 }*/
             }
             Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
+                modifier = Modifier.fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 Text(
+                    modifier = Modifier.padding(horizontal = 16.dp),
                     text = "이 농산물 어때요?",
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
                 )
+                LazyRow(
+                    contentPadding = PaddingValues(horizontal = 16.dp),
+                ) {
+                    item {
+                        Image(
+                            modifier = Modifier.size(
+                                width = (664 * 1.2).dp,
+                                height = (269 * 1.2).dp,
+                            ),
+                            painter = painterResource(id = R.drawable.img_videos),
+                            contentDescription = null,
+                        )
+                    }
+                }/*
                 if (state.homeState != null) {
                     LazyRow(
                         contentPadding = PaddingValues(horizontal = 16.dp),
                     ) {
                         val items = state.homeState!!.data!!.videos
                         items(items) { item ->
-                            AsyncImage(
-                                modifier = Modifier
-                                    .size(
-                                        width = 200.dp,
-                                        height = 256.dp,
-                                    )
-                                    .clip(RoundedCornerShape(10.dp)),
+                            AsyncImage(modifier = Modifier
+                                .size(
+                                    width = 200.dp,
+                                    height = 256.dp,
+                                )
+                                .clip(RoundedCornerShape(10.dp)),
                                 model = item.thumbnailUrl,
                                 contentScale = ContentScale.Crop,
                                 contentDescription = null,
                                 onError = {
                                     it.result.throwable.printStackTrace()
                                     println("FAILFAIL ${item.thumbnailUrl}")
-                                }
-                            )
+                                })
                         }
+                    }
+                }*/
+            }
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                Text(
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                    text = "요즘 뜨는 셀러",
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                )
+                LazyRow(
+                    contentPadding = PaddingValues(horizontal = 16.dp),
+                ) {
+                    item {
+                        Image(
+                            modifier = Modifier.height((160 * 1.2).dp),
+                            painter = painterResource(id = R.drawable.img_sellers),
+                            contentDescription = null,
+                        )
                     }
                 }
             }
