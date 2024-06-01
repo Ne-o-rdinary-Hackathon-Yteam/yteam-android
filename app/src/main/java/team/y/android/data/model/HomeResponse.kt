@@ -4,12 +4,13 @@ data class HomeResponse(
     override val success: Boolean,
     override val code: Int,
     override val message: String,
-    override val data: HomeResponseData?,
+    override val data: HomeResponseData,
 ) : CommonResponse() {
     data class HomeResponseData(
         val advertisements: List<AdvertisementResponse>,
         val videos: List<VideoResponse>,
         val stories: List<StoreResponse>,
+        val characterObject: List<CharacterObject>,
     )
 }
 
@@ -31,6 +32,13 @@ data class StoreResponse(
     val storeName: String,
     val imgUrl: String,
     val hashtags: String,
+)
+
+data class CharacterObject(
+    val kind: String,
+    val change: Int,
+    val level: String,
+    val curl: String,
 )
 
 

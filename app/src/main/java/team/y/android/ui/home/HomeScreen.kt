@@ -106,9 +106,6 @@ fun HomeScreen() {
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 if (state.homeState != null) {
-
-                    println("스테이트")
-                    println(state)
                     val pagerState = rememberPagerState {
                         state.homeState!!.data!!.advertisements.size
                     }
@@ -126,13 +123,6 @@ fun HomeScreen() {
                             model = state.homeState!!.data!!.advertisements[page].adUrl,
                             contentScale = ContentScale.Crop,
                             contentDescription = null,
-                            onError = {
-                                it.result.throwable.printStackTrace()
-                                println("실패실패")
-                            },
-                            onSuccess = {
-                                println("성공성공")
-                            }
                         )
                     }
 

@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import team.y.android.data.ACCESS_TOKEN
 import team.y.android.data.homeApiService
 import team.y.android.data.model.HomeResponse
 import javax.inject.Inject
@@ -20,7 +21,9 @@ class HomeViewModel @Inject constructor() : ViewModel() {
     init {
         viewModelScope.launch(Dispatchers.IO) {
             kotlin.runCatching {
-                homeApiService.getHome()
+                homeApiService.getHome(
+                    req = ACCESS_TOKEN,
+                )
             }.onSuccess {
                 _homeState.emit(
                     homeState.value.copy(
