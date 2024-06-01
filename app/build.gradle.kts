@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android") version "2.48.1"
 }
 
 android {
@@ -54,6 +56,12 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)
     implementation(libs.androidx.core.ktx)
+    implementation(libs.okhttp.loggingInterceptor)
+    implementation("com.google.dagger:hilt-android:2.48.1")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0")
+    kapt("com.google.dagger:hilt-compiler:2.48.1")
+    implementation("androidx.navigation:navigation-compose:2.7.7")
+    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
