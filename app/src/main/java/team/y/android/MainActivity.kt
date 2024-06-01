@@ -27,6 +27,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import team.y.android.ui.SelectScreen
 import team.y.android.ui.growth.GrowthScreen
 import team.y.android.ui.home.HomeScreen
 import team.y.android.ui.mypage.MyPageScreen
@@ -75,7 +76,7 @@ class MainActivity : ComponentActivity() {
                             .padding(innerPadding),
                     ) {
                         when (currentDestination) {
-                            YTeamDestination.HOME -> HomeScreen()
+                            YTeamDestination.HOME -> SelectScreen()
                             YTeamDestination.GROWTH -> GrowthScreen()
                             YTeamDestination.SHORT_FORM -> ShortFormScreen()
                             YTeamDestination.MY_PAGE -> MyPageScreen()
