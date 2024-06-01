@@ -3,16 +3,17 @@ package team.y.android.ui.home
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
@@ -38,6 +39,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -51,12 +53,15 @@ import team.y.android.ui.theme.Gray10
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    onNavigateToGrowth: () -> Unit,
+) {
     val vm: HomeViewModel = hiltViewModel()
     val state by vm.homeState.collectAsStateWithLifecycle()
     val topAppBarScrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
     Scaffold(
+        modifier = Modifier.nestedScroll(topAppBarScrollBehavior.nestedScrollConnection),
         containerColor = Gray10,
         topBar = {
             TopAppBar(
@@ -86,8 +91,7 @@ fun HomeScreen() {
             modifier = Modifier
                 .verticalScroll(rememberScrollState())
                 .fillMaxSize()
-                .padding(innerPadding)
-                .nestedScroll(topAppBarScrollBehavior.nestedScrollConnection),
+                .padding(innerPadding),
             verticalArrangement = Arrangement.spacedBy(48.dp),
         ) {
             Column(
@@ -111,11 +115,15 @@ fun HomeScreen() {
                                 .height(256.dp)
                                 .clip(RoundedCornerShape(10.dp)),
                         ) {
+                            val urlHandler = LocalUriHandler.current
+
+                            val img = state.homeState!!.data.advertisements[page]
                             AsyncImage(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .height(256.dp),
-                                model = state.homeState!!.data.advertisements[page].imgUrl,
+                                    .height(256.dp)
+                                    .clickable { urlHandler.openUri(img.adUrl) },
+                                model = img.imageUrl,
                                 contentScale = ContentScale.Crop,
                                 contentDescription = null,
                             )
@@ -128,9 +136,21 @@ fun HomeScreen() {
                                 color = Color.Transparent,
                             ) {
                                 Column(
+                                    modifier = Modifier.padding(10.dp),
                                     verticalArrangement = Arrangement.Bottom,
                                 ) {
-
+                                    Text(
+                                        text = img.title,
+                                        color = Color.White,
+                                        fontSize = 18.sp,
+                                        fontWeight = FontWeight.Bold,
+                                    )
+                                    Spacer(modifier = Modifier.height(4.dp))
+                                    Text(
+                                        text = img.content,
+                                        color = Color.White,
+                                        fontSize = 10.sp,
+                                    )
                                 }
                             }
                         }
@@ -158,6 +178,7 @@ fun HomeScreen() {
                 )
 
                 Image(
+                    modifier = Modifier.clickable { onNavigateToGrowth() },
                     painter = painterResource(id = R.drawable.img_level),
                     contentDescription = null,
                 )/* OutlinedCard(

@@ -97,7 +97,10 @@ fun App() {
                     .padding(bottom = innerPadding.calculateBottomPadding()),
             ) {
                 when (currentDestination) {
-                    YTeamDestination.HOME -> HomeScreen()
+                    YTeamDestination.HOME -> HomeScreen(
+                        onNavigateToGrowth = { currentDestination = YTeamDestination.GROWTH }
+                    )
+
                     YTeamDestination.GROWTH -> GrowthScreen()
                     YTeamDestination.SHORT_FORM -> ShortFormScreen()
                     YTeamDestination.MY_PAGE -> MyPageScreen()

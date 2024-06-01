@@ -19,7 +19,7 @@ data class AdvertisementResponse(
     val title: String,
     val content: String,
     val adUrl: String,
-    val imgUrl: String,
+    val imageUrl: String,
 )
 
 data class VideoResponse(

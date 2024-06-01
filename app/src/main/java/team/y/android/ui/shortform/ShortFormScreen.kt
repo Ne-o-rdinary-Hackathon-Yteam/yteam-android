@@ -141,7 +141,7 @@ fun ShortFormScreen() {
                                     fontSize = 12.sp,
                                 )
                                 Text(
-                                    text = "조회수 203",
+                                    text = "조회수 2036",
                                     color = Color.White,
                                     fontSize = 12.sp,
                                 )
