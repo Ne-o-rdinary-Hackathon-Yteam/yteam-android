@@ -24,7 +24,7 @@ object RetrofitClient {
     }
 }
 
-private const val BASE_URL = "http://16.170.255.4:8080/"
+private const val BASE_URL = "http://3.37.129.64:8080/"
 
 const val ACCESS_TOKEN = "d6f6d982-cb17-4ce5-aab4-ba16e2e5f1d4"
 

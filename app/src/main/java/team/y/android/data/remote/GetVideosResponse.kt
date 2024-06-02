@@ -6,7 +6,7 @@ data class GetVideosResponse(
     override val success: Boolean,
     override val code: Int,
     override val message: String,
-    override val data: GetVideosResponseData,
+    override val data: List<GetVideosResponseData>,
     val pageInfo: PageInfoResponse,
 ) : CommonResponse() {
     data class GetVideosResponseData(
